@@ -1,0 +1,55 @@
+@startuml
+
+skinparam linetype ortho
+
+class User {
+   username : String
+   email: String
+   password: String
+   avatarPath: String
+   dateJoined: DateTime
+   lastLogin: DateTime
+}
+
+class App {
+   name : String
+   description : String
+}
+
+class Entry {
+   title : String
+   description : String
+   createdBy: User
+   status: String
+   priority: String
+   repoLink: String
+   createdAt: DateTime
+   lastUpdated:  DateTime
+}
+
+class Comment {
+   body: String
+   attachmentId: Integer
+   hasAttachment()
+}
+
+class Attachment{
+   filePath: String
+   type: String
+   checkIfValid()
+}
+
+class Tag {
+   tagString : String
+   tagColor : String
+   }
+
+App *-- Entry
+Entry *-- Comment
+Entry o- Tag
+Comment o-- Attachment
+User o- Entry
+User o- App
+User o- Comment
+User o- Attachment
+@enduml

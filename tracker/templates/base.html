@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <!-- Common CSS libraries -->
+    <link rel="stylesheet" href="path_to_some_css_library.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Common header -->
+<header>
+    <h1>My App</h1>
+</header>
+
+<!-- Main content placeholder -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Common footer -->
+<footer>
+    Copyright &copy; 2023. All rights reserved.
+</footer>
+
+<!-- Common JS libraries -->
+<script src="path_to_some_js_library.js"></script>
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

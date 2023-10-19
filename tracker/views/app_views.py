@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import App
-from .forms import AppForm
+from django.shortcuts import get_object_or_404, render, redirect
+from tracker.forms.forms import AppForm
+from tracker.models import App
 
 
 def app_list(request):

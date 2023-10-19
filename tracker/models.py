@@ -11,7 +11,7 @@ class User(AbstractBaseUser):
 class App(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='apps')
+    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='apps', null=True)
 
 
 class Entry(models.Model):

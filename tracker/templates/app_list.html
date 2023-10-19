@@ -4,12 +4,18 @@
 
 {% block extra_css %}
     <!-- Specific CSS for this page -->
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.css'>
 {% endblock %}
 
 {% block content %}
-<h1>List of Apps</h1>
-<!-- ... rest of your content ... -->
+    <h2>App List</h2>
+    <ul>
+        {% for app in apps %}
+            <li>
+                <a href="{% url 'app_detail' app.pk %}">{{ app.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'app_create' %}">Add New App</a>
 {% endblock %}
 
 {% block extra_js %}

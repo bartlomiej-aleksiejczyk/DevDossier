@@ -1,5 +1,5 @@
 from django import forms
-from .models import App
+from tracker.models import App
 
 
 class AppForm(forms.ModelForm):

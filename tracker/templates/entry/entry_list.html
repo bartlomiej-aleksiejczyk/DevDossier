@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>All Entries</h2>
+
+<ul>
+    {% for entry in entries %}
+        <li>
+            <strong><a href="{% url 'entry_detail' entry.pk %}">{{ entry.title }}</a></strong> - {{ entry.description }}
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'entry_create' %}">Create a new entry</a>
+{% endblock %}

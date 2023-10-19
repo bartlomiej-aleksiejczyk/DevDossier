@@ -5,5 +5,13 @@
     <p>{{ app.description }}</p>
     <a href="{% url 'app_edit' app.pk %}">Edit</a>
     <a href="{% url 'app_delete' app.pk %}" onclick="return confirm('Are you sure you want to delete this app?');">Delete</a>
+    <h3>Entries for this App:</h3>
+    <ul>
+        {% for entry in entries %}
+            <li>
+                <strong>{{ entry.title }}</strong>: {{ entry.description }}
+            </li>
+        {% endfor %}
+    </ul>
     <a href="{% url 'app_list' %}">Back to App List</a>
 {% endblock %}

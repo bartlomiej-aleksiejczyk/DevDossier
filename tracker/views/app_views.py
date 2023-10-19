@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from tracker.forms.forms import AppForm
+from tracker.forms.app_forms import AppForm
 from tracker.models import App
 
 
@@ -21,7 +21,8 @@ def app_create(request):
 
 def app_detail(request, pk):
     app = get_object_or_404(App, pk=pk)
-    return render(request, 'app/app_detail.html', {'app': app})
+    entries = app.entries.all()
+    return render(request, 'app/app_detail.html', {'app': app, 'entries': entries})
 
 
 def app_edit(request, pk):

@@ -44,5 +44,5 @@ class Attachment(models.Model):
     type = models.CharField(max_length=50)
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachments')
 
-    def checkIfValid(self):
+    def check_if_valid(self):
         pass

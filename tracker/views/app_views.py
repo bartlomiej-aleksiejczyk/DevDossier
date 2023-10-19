@@ -5,7 +5,7 @@ from tracker.models import App
 
 def app_list(request):
     apps = App.objects.all()
-    return render(request, 'app_list.html', {'apps': apps})
+    return render(request, 'app/app_list.html', {'apps': apps})
 
 
 def app_create(request):
@@ -16,12 +16,12 @@ def app_create(request):
             return redirect('app_list')
     else:
         form = AppForm()
-    return render(request, 'app_form.html', {'form': form})
+    return render(request, 'app/app_form.html', {'form': form})
 
 
 def app_detail(request, pk):
     app = get_object_or_404(App, pk=pk)
-    return render(request, 'app_detail.html', {'app': app})
+    return render(request, 'app/app_detail.html', {'app': app})
 
 
 def app_edit(request, pk):
@@ -33,10 +33,11 @@ def app_edit(request, pk):
             return redirect('app_detail', pk=app.pk)
     else:
         form = AppForm(instance=app)
-    return render(request, 'app_form.html', {'form': form})
+    return render(request, 'app/app_form.html', {'form': form})
 
 
 def app_delete(request, pk):
-    app = get_object_or_404(App, pk=pk)
-    app.delete()
-    return redirect('app_list')
+    if request.method == "POST":
+        app = get_object_or_404(App, pk=pk)
+        app.delete()
+        return redirect('app_list')

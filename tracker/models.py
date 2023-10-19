@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
+from tracker.enums.entry_enums import EntryStatus, EntryType, EntryPriority
+
 
 class User(AbstractBaseUser):
     avatarPath = models.CharField(max_length=255, blank=True, null=True)
@@ -18,9 +20,22 @@ class App(models.Model):
 class Entry(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    type = models.CharField(
+        max_length=50,
+        choices=[(type_.name, type_.value) for type_ in EntryType],
+        default=EntryType.TYPE1.name  # Set the default to any type you prefer
+    )
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries')
-    status = models.CharField(max_length=50)
-    priority = models.CharField(max_length=50)
+    status = models.CharField(
+        max_length=50,
+        choices=[(status.name, status.value) for status in EntryStatus],
+        default=EntryStatus.NEW.name  # Set the default status
+    )
+    priority = models.CharField(
+        max_length=50,
+        choices=[(priority.name, priority.value) for priority in EntryPriority],
+        default=EntryPriority.MEDIUM.name  # Set the default priority
+    )
     createdAt = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)
     app = models.ForeignKey(App, on_delete=models.CASCADE, related_name='entries')

@@ -1,15 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 
-class User(AbstractUser):
+
+class User(AbstractBaseUser):
     avatarPath = models.CharField(max_length=255, blank=True, null=True)
     dateJoined = models.DateTimeField(auto_now_add=True)
     lastLogin = models.DateTimeField(auto_now=True)
+
 
 class App(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='apps')
+
 
 class Entry(models.Model):
     title = models.CharField(max_length=255)
@@ -22,10 +25,12 @@ class Entry(models.Model):
     lastUpdated = models.DateTimeField(auto_now=True)
     app = models.ForeignKey(App, on_delete=models.CASCADE, related_name='entries')
 
+
 class Tag(models.Model):
     tagString = models.CharField(max_length=100)
     tagColor = models.CharField(max_length=7)
     entry = models.ManyToManyField(Entry, related_name='tags')
+
 
 class Comment(models.Model):
     body = models.TextField()
@@ -33,11 +38,11 @@ class Comment(models.Model):
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE, related_name='comments')
 
+
 class Attachment(models.Model):
     filePath = models.CharField(max_length=255)
     type = models.CharField(max_length=50)
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachments')
 
     def checkIfValid(self):
-        # Implementation for attachment validation
         pass

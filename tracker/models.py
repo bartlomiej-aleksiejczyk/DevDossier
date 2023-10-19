@@ -11,6 +11,7 @@ class User(AbstractBaseUser):
 class App(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    repoLink = models.URLField(blank=True, null=True)
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='apps', null=True)
 
 
@@ -20,7 +21,6 @@ class Entry(models.Model):
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries')
     status = models.CharField(max_length=50)
     priority = models.CharField(max_length=50)
-    repoLink = models.URLField(blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)
     app = models.ForeignKey(App, on_delete=models.CASCADE, related_name='entries')

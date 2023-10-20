@@ -9,9 +9,9 @@
             {{ form.as_p }}
             <p>App: {{ app.name }}</p>
             <button type="submit">Save</button>
+            {% if app %}
+                <a class="secondary-button" href="{% url 'app_detail' app.pk %}">Back to App Details</a>
+            {% endif %}
         </form>
-        {% if form.instance.app %}
-            <a href="{% url 'app_detail' app.name %}">Back to App Details</a>
-        {% endif %}
     </div>
 {% endblock %}

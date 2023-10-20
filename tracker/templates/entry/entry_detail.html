@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ entry.title }}</h2>
+    <h2>{{ entry.title }}</h2>
 
-<p>{{ entry.description }}</p>
-<p>Created by: {{ entry.createdBy }}</p>
-<p>Status: {{ entry.status }}</p>
-<p>Priority: {{ entry.priority }}</p>
+    <p>{{ entry.description }}</p>
+    <p>Created by: {{ entry.createdBy }}</p>
+    <p>Status: {{ entry.status }}</p>
+    <p>Priority: {{ entry.priority }}</p>
 
-<a href="{% url 'entry_edit' entry.pk %}">Edit</a> |
-<a href="{% url 'entry_delete' entry.pk %}" onclick="return confirm('Are you sure you want to delete this app?')">Delete</a>
+    <a href="{% url 'entry_edit' app_pk entry.pk %}">Edit</a> |
+    <a href="{% url 'entry_delete' app_pk entry.pk %}" onclick="return confirm('Are you sure you want to delete this app?')">Delete</a>
+    <a href="{% url 'app_detail' app_pk %}">Back to App Details</a>
 {% endblock %}

@@ -6,15 +6,24 @@
 {% endblock %}
 
 {% block content %}
-    <h2>App List</h2>
-    <ul>
-        {% for app in apps %}
-            <li>
-                <a href="{% url 'app_detail' app.pk %}">{{ app.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'app_create' %}">Add New App</a>
+    <article class="separate">
+        <h2 class="centered">App List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>App Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in apps %}
+                    <tr>
+                        <td><a href="{% url 'app_detail' app.pk %}">{{ app.name }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button onclick="location.href='{% url 'app_create' %}';">Add New App</button>
+    </article>
 {% endblock %}
 
 {% block extra_js %}

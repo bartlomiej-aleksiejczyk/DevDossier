@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ app.name }}</h2>
-    <p>{{ app.description }}</p>
     <a href="{% url 'app_edit' app.pk %}">Edit</a>
     <a href="{% url 'app_delete' app.pk %}" onclick="return confirm('Are you sure you want to delete this app?');">Delete</a>
+
     <h3>Entries for this App:</h3>
     <ul>
         {% for entry in entries %}
             <li>
                 <strong>{{ entry.title }}</strong>: {{ entry.description }}
+                {% if app.pk and entry.pk%}
+                    <a href="{% url 'entry_edit' app.pk entry.pk %}">Edit</a>
+                    <a href="{% url 'entry_delete' app.pk entry.pk %}"
+                       onclick="return confirm('Are you sure you want to delete this entry?');">Delete</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+
+    <a href="{% url 'entry_create_for_app' app.pk %}">Add New Entry for this App</a>
     <a href="{% url 'app_list' %}">Back to App List</a>
+
 {% endblock %}

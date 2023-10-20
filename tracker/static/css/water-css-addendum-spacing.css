@@ -1,0 +1,22 @@
+
+.highlight {
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 0.5rem;
+    margin: 2rem 0;
+}
+
+.separate {
+    border: 3px solid #161f27;
+    border-radius: 6px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 0.5rem;
+    margin: 2rem 0;
+}
+
+.spacer-mid {
+    padding: 0.5rem 0 0.5rem;
+}

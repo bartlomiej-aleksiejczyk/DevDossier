@@ -1,0 +1,82 @@
+.top-navbar {
+    background-color: #15222c;
+    padding: 10px 20px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a.action-link {
+    padding: 4px 8px;
+    text-decoration: none;
+    margin-right: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+button.action-link {
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+    margin-right: 6px;
+    border: 1px solid;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    background-color: transparent;
+}
+
+button.action-link.delete {
+    color: #f44336;
+}
+
+button.action-link.edit {
+    color: #4caf50;
+}
+
+button.action-link:hover {
+    background-color: #ffebee;
+}
+
+a.action-link.edit {
+
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+a.action-link.edit:hover {
+    background-color: #e8f5e9;
+}
+
+a.action-link.delete {
+    color: #f44336;
+}
+
+a.action-link.delete:hover {
+    background-color: #ffebee;
+}
+
+.secondary-button {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.56rem;
+    margin-right: 0;
+    border-radius: 6px;
+    border: 1px solid #040A0F;
+    color: #fff;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    transition: background-color 0.1s linear,
+    border-color 0.1s linear,
+    color 0.1s linear,
+    box-shadow 0.1s linear,
+    transform 0.1s ease;
+}
+
+.secondary-button:hover {
+    background: #161f27;
+}
+
+.secondary-button:focus {
+    box-shadow: 0 0 0 2px #0096bfab;
+}

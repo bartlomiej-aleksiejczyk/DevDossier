@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="form-container-one-column">
+    <h2>Add new app</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
+        <a class="secondary-button" href="{% url 'app_list' %}">Cancel</a>
     </form>
-    <a href="{% url 'app_list' %}">Cancel</a>
+    </div>
 {% endblock %}

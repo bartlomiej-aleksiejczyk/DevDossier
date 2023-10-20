@@ -25,7 +25,7 @@ class Entry(models.Model):
         choices=[(type_.name, type_.value) for type_ in EntryType],
         default=EntryType.TYPE1.name  # Set the default to any type you prefer
     )
-    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries')
+    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries', null=True)
     status = models.CharField(
         max_length=50,
         choices=[(status.name, status.value) for status in EntryStatus],

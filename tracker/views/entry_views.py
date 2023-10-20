@@ -1,28 +1,33 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
 from tracker.forms.entry_forms import EntryForm
-from tracker.models import Entry
+from tracker.models import Entry, App
 
 
-def entry_list(request):
-    entries = Entry.objects.all()
-    return render(request, 'entry/entry_list.html', {'entries': entries})
+def entry_list(request, app_pk):
+    app = get_object_or_404(App, pk=app_pk)
+    entries = app.entries.all()
+    return render(request, 'entry/entry_list.html', {'entries': entries, "app_pk": app_pk})
 
 
-def entry_detail(request, pk):
+def entry_detail(request, app_pk, pk):
     entry = get_object_or_404(Entry, pk=pk)
-    return render(request, 'entry/entry_detail.html', {'entry': entry})
+    return render(request, 'entry/entry_detail.html', {'entry': entry, "app_pk": app_pk})
 
 
-def entry_create(request):
+def entry_create(request, app_pk):
+    app = get_object_or_404(App, pk=app_pk)
+
     if request.method == "POST":
         form = EntryForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('entry_list')
+            entry = form.save(commit=False)
+            entry.app = app
+            entry.save()
+            return redirect('entry_list_for_app', app_pk=app_pk)
     else:
         form = EntryForm()
-    return render(request, 'entry/entry_form.html', {'form': form})
+    return render(request, 'entry/entry_form.html', {'form': form, 'app': app})
 
 
 def entry_edit(request, pk):

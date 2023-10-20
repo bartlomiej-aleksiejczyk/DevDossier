@@ -8,14 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}DevDossier{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
-    <link rel="stylesheet" href="{% static 'css/water-css-addendum.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/water-css-addendum-classless.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/water-css-addendum-forms.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/water-css-addendum-navigation.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/water-css-addendum-spacing.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/water-css-addendum-text.css' %}" type="text/css">
+
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
 <nav>
-    <header ><a href="/app">DevDossier</a></header>
+    <header class="top-navbar"><a href="/app">DevDossier</a></header>
 </nav>
 
 <main class="container mt-4">

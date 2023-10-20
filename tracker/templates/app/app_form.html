@@ -2,12 +2,12 @@
 
 {% block content %}
     <div class="form-container-one-column">
-    <h2>Add new app</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-        <a class="secondary-button" href="{% url 'app_list' %}">Cancel</a>
-    </form>
+        <h2>{% if form.instance.pk %}Edit App{% else %}Add New App{% endif %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+            <a class="secondary-button" href="{% url 'app_list' %}">Cancel</a>
+        </form>
     </div>
 {% endblock %}

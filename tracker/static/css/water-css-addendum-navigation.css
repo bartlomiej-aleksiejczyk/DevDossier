@@ -55,17 +55,19 @@ a.action-link.delete:hover {
     background-color: #ffebee;
 }
 
-.secondary-button {
+button.secondary-button {
     box-sizing: border-box;
     text-align: center;
     padding: 0.56rem;
     margin-right: 0;
     border-radius: 6px;
     border: 1px solid #040A0F;
+    white-space: nowrap;
     color: #fff;
     font-family: inherit;
     font-size: inherit;
     outline: none;
+    background-color: transparent;
     transition: background-color 0.1s linear,
     border-color 0.1s linear,
     color 0.1s linear,

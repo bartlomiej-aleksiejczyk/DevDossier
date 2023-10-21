@@ -67,7 +67,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <hr/>
         <button onclick="location.href='{% url 'entry_create_for_app' app.pk %}';">Add New Entry for this App</button>
-        <a class="secondary-button" href="{% url 'app_list' %}">Back to App List</a>
+        <button class="secondary-button" onclick="location.href={% url 'app_list' %};">Back to App List</button>
     </div>
 {% endblock %}

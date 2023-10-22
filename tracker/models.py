@@ -23,18 +23,18 @@ class Entry(models.Model):
     type = models.CharField(
         max_length=50,
         choices=[(type_.name, type_.value) for type_ in EntryType],
-        default=EntryType.TYPE1.name  # Set the default to any type you prefer
+        default=EntryType.TYPE1.name
     )
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries', null=True)
     status = models.CharField(
         max_length=50,
         choices=[(status.name, status.value) for status in EntryStatus],
-        default=EntryStatus.NEW.name  # Set the default status
+        default=EntryStatus.NEW.name
     )
     priority = models.CharField(
         max_length=50,
         choices=[(priority.name, priority.value) for priority in EntryPriority],
-        default=EntryPriority.MEDIUM.name  # Set the default priority
+        default=EntryPriority.MEDIUM.name
     )
     createdAt = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)

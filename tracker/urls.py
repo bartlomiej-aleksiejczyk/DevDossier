@@ -2,8 +2,9 @@ from django.urls import path
 
 from .views import (
     app_list, app_create, app_detail, app_edit, app_delete,
-    entry_list, entry_detail, entry_create, entry_edit, entry_delete,
+    entry_list, entry_detail, entry_create, entry_edit, entry_delete, comment_views, tag_views,
 )
+from .views.tag_views import tag_create
 
 urlpatterns = [
 
@@ -20,4 +21,10 @@ urlpatterns = [
     path('app/<int:app_pk>/entry/<int:pk>/edit/', entry_edit, name='entry_edit'),
     path('app/<int:app_pk>/entry/<int:pk>/delete/', entry_delete, name='entry_delete'),
 
+    # Comment endpoints
+    path('app/<int:app_pk>/entry/<int:entry_pk>/add_comment/', comment_views.comment_create, name='add_comment'),
+
+    # Tag endpoints
+    path('tags/', tag_views.tag_list, name='tag_list'),
+    path('tag/create/', tag_create, name='tag_create'),
 ]

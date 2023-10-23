@@ -10,16 +10,16 @@
         <h2 class="centered">App List</h2>
         <table>
             <thead>
-                <tr>
-                    <th>App Name</th>
-                </tr>
+            <tr>
+                <th>App Name</th>
+            </tr>
             </thead>
             <tbody>
-                {% for app in apps %}
-                    <tr>
-                        <td><a href="{% url 'app_detail' app.pk %}">{{ app.name }}</a></td>
-                    </tr>
-                {% endfor %}
+            {% for app in apps %}
+                <tr>
+                    <td><a href="{% url 'app_detail' app.pk %}">{{ app.name }}</a></td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
         <button onclick="location.href='{% url 'app_create' %}';">Add New App</button>

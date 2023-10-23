@@ -5,7 +5,7 @@
 
     <ul>
         {% for tag in tags %}
-            <li style="background-color: {{ tag.tagColor }};">{{ tag.tagString }}</li>
+            <li style="background-color: {{ tag.tagColor }};">{{ tag.tagName }}</li>
         {% empty %}
             <li>No tags available.</li>
         {% endfor %}

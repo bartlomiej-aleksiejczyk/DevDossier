@@ -42,9 +42,12 @@ class Entry(models.Model):
 
 
 class Tag(models.Model):
-    tagString = models.CharField(max_length=100)
+    tagName = models.CharField(max_length=100)
     tagColor = models.CharField(max_length=7)
     entry = models.ManyToManyField(Entry, related_name='tags')
+
+    def __str__(self):
+        return self.tagName
 
 
 class Comment(models.Model):

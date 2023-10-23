@@ -7,8 +7,8 @@ class TagForm(forms.ModelForm):
 
     class Meta:
         model = Tag
-        fields = ['tagString', 'tagColor']
+        fields = ['tagName', 'tagColor']
         labels = {
-            'tagString': 'Tag Name',
+            'tagName': 'Tag Name',
             'tagColor': 'Tag Color'
         }

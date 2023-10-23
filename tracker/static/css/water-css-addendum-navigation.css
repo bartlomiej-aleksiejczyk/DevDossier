@@ -1,10 +1,19 @@
 .top-navbar {
-    background-color: #15222c;
-    padding: 10px 20px;
+    background-color: #161F27;
+    padding: 1rem 2rem;
     margin-bottom: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
+}
+.top-navbar div {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+.navlinks {
+    white-space: nowrap;
 }
 
 a.action-link {

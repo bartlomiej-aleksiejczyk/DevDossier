@@ -9,6 +9,8 @@
                 <strong><a href="{% url 'entry_detail' app_pk entry.pk %}">{{ entry.title }}</a></strong>
                 - {{ entry.description }}
             </li>
+        {% empty %}
+            <li>No entries here.</li>
         {% endfor %}
     </ul>
 

@@ -50,25 +50,27 @@
                             <form class="form-inline" method="get" action="{% url 'entry_edit' app.pk entry.pk %}">
                                 <button class="action-link edit" type="submit">Edit</button>
                             </form>
-                            <form class="form-inline" method="post" action="{% url 'entry_delete' app.pk entry.pk %}">
+                            <form class="form-inline" method="post"
+                                  action="{% url 'entry_delete' app.pk entry.pk %}">
                                 {% csrf_token %}
-                                <form class="form-inline" method="post"
-                                      action="{% url 'entry_delete' app.pk entry.pk %}">
-                                    {% csrf_token %}
-                                    <button class="action-link delete" type="submit"
-                                            onclick="return confirm('Are you sure you want to delete this entry?');">
-                                        Delete
-                                    </button>
-                                </form>
+                                <button class="action-link delete" type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this entry?');">
+                                    Delete
+                                </button>
                             </form>
                         {% endif %}
                     </td>
                 </tr>
+            {% empty %}
+                <tr>
+                    <td class="centered spacer-mid" colspan="3">No entries found.</td>
+                </tr>
             {% endfor %}
             </tbody>
+
         </table>
         <hr/>
         <button onclick="location.href='{% url 'entry_create_for_app' app.pk %}';">Add New Entry for this App</button>
-        <button class="secondary-button" onclick="location.href={% url 'app_list' %};">Back to App List</button>
+        <button class="secondary-button" onclick="location.href='{% url 'app_list' %}';">Back to App List</button>
     </div>
 {% endblock %}

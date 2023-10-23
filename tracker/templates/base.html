@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="dark">
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,9 +17,11 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-
-<nav>
-    <header class="top-navbar"><a href="/app">DevDossier</a></header>
+<header>DevDossier</header>
+<nav class="top-navbar">
+    <div>
+        <a class="navlinks" href="{% url 'app_list' %}">Display Apps</a>
+    </div>
 </nav>
 
 <main class="container mt-4">

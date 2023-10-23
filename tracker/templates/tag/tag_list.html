@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Tags</h1>
+
+    <ul>
+        {% for tag in tags %}
+            <li style="background-color: {{ tag.tagColor }};">{{ tag.tagString }}</li>
+        {% empty %}
+            <li>No tags available.</li>
+        {% endfor %}
+    </ul>
+    <button class="secondary-button" onclick="location.href='{% url 'tag_create' %}';">Create Tag</button>
+{% endblock %}

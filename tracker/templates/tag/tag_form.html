@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Create Tag</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+        <button class="secondary-button" onclick="location.href='{% url 'app_list' %}';">Back to App List</button>
+
+</form>
+
+{% endblock %}

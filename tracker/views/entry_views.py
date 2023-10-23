@@ -12,7 +12,8 @@ def entry_list(request, app_pk):
 
 def entry_detail(request, app_pk, pk):
     entry = get_object_or_404(Entry, pk=pk)
-    return render(request, 'entry/entry_detail.html', {'entry': entry, "app_pk": app_pk})
+    comments = entry.comments.all()
+    return render(request, 'entry/entry_detail.html', {'entry': entry, "app_pk": app_pk, 'comments': comments})
 
 
 def entry_create(request, app_pk):
@@ -23,8 +24,8 @@ def entry_create(request, app_pk):
         if form.is_valid():
             entry = form.save(commit=False)
             entry.app = app
-            entry.save()
-            app = get_object_or_404(App, pk=app_pk)
+            entry.save()  # Save the instance to the database first
+            form.save_m2m()  # Then save the many-to-many relationships
             return redirect('entry_list_for_app', app_pk=app.pk)
     else:
         form = EntryForm()
@@ -37,8 +38,11 @@ def entry_edit(request, app_pk, pk):
     if request.method == "POST":
         form = EntryForm(request.POST, instance=entry)
         if form.is_valid():
-            form.save()
-            return redirect('entry_detail', pk=entry.pk)
+            entry = form.save(commit=False)
+            entry.app = app
+            entry.save()
+            form.save_m2m()
+        return redirect('entry_detail', app_pk=app_pk, pk=entry.pk)
     else:
         form = EntryForm(instance=entry)
     return render(request, 'entry/entry_form.html', {'form': form, 'app': app})

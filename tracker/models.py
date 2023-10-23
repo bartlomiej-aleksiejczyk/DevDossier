@@ -50,14 +50,14 @@ class Tag(models.Model):
 class Comment(models.Model):
     body = models.TextField()
     attachment = models.OneToOneField('Attachment', on_delete=models.SET_NULL, blank=True, null=True)
-    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', null=True)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE, related_name='comments')
 
 
 class Attachment(models.Model):
     filePath = models.CharField(max_length=255)
     type = models.CharField(max_length=50)
-    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachments')
+    createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachments', null=True)
 
     def check_if_valid(self):
         pass

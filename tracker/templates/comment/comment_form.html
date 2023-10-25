@@ -9,5 +9,5 @@
     <button type="submit">Add Comment</button>
 </form>
 
-<a href="{% url 'entry_detail' app_pk=app_pk pk=entry.pk %}">Back to Entry Details</a>
+<a href="{% url 'entry_detail' app_pk=entry.app.pk pk=entry.pk %}">Back to Entry Details</a>
 {% endblock %}

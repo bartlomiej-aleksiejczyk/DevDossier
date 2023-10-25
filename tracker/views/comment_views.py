@@ -11,12 +11,14 @@ def comment_create(request, app_pk, entry_pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            # comment.createdBy = request.user
+            #comment.createdBy = request.user
             comment.entry = entry
             comment.save()
 
             if 'attachment' in request.FILES:
-                attachment = Attachment(filePath=request.FILES['attachment'], createdBy=request.user)
+                attachment = Attachment(filePath=request.FILES['attachment'],
+                                        #createdBy=request.user
+                                        )
                 attachment.save()
                 comment.attachment = attachment
                 comment.save()

@@ -24,7 +24,7 @@
                 <span style="background-color: {{ tag.tagColor }};">{{ tag.tagString }}</span>
             {% endfor %}
             {% if comment.attachment %}
-            {{ comment.attachment }}
+            <img src="{{ comment.attachment.filePath }}" alt="Attachment Image">
             {% endif %}
         </div>
     {% empty %}

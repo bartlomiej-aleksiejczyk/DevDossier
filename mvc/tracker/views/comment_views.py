@@ -20,6 +20,7 @@ def comment_create(request, app_pk, entry_pk):
                                         #createdBy=request.user
                                         )
                 attachment.save()
+                print(request.FILES['attachment'])
                 comment.attachment = attachment
                 comment.save()
 

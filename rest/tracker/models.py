@@ -5,10 +5,11 @@ from tracker.enums.entry_enums import EntryStatus, EntryType, EntryPriority
 
 
 class User(AbstractBaseUser):
+    username = models.CharField(max_length=150, unique=True)
     avatarPath = models.CharField(max_length=255, blank=True, null=True)
     dateJoined = models.DateTimeField(auto_now_add=True)
     lastLogin = models.DateTimeField(auto_now=True)
-
+    USERNAME_FIELD = 'username'
 
 class App(models.Model):
     name = models.CharField(max_length=100)

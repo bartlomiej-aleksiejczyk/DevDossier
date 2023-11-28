@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+
 from tracker.forms.tag_forms import TagForm
 from tracker.models import Tag
 
 
-def tag_create(request):
-    if request.method == "POST":
-        form = TagForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('tag_list')
-    else:
-        form = TagForm()
-    return render(request, 'tag/tag_form.html', {'form': form})
+class TagViewSet(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated,)
 
-
-def tag_list(request):
-    tags = Tag.objects.all()
-    return render(request, 'tag/tag_list.html', {'tags': tags})
+    def get_tags(self, request, pk=None):
+        return Response(
+            dict(
+                success=True,
+                message=(board_instance and "apiColumnUpdated" or "apiColumnAdded"),
+                data=BoardSerializer(Board.objects.all(), many=True).data
+            )
+        )

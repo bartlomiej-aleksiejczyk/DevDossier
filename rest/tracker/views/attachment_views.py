@@ -1,6 +1,5 @@
 from rest_framework import viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.filters import OrderingFilter
 
 from tracker.common.consts import NOT_AUTHORIZED_MESSAGE
 from tracker.models import App

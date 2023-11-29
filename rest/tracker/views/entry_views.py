@@ -6,7 +6,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from tracker.common.consts import NOT_AUTHORIZED_MESSAGE
 from tracker.enums.entry_enums import EntryType, EntryStatus, EntryPriority
-from tracker.models import App, Entry
+from tracker.models import Entry
 from tracker.serializers.entry_serializer import EntrySerializer
 
 

@@ -51,3 +51,11 @@ class UserLoginSerializer(serializers.Serializer):  # noqa
         if user and user.is_active:
             return {'user': user}
         raise serializers.ValidationError('Incorrect Credentials')
+
+
+class UserEntryRankSerializer(serializers.ModelSerializer):
+    entries_count = serializers.IntegerField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'entries_count']

@@ -18,7 +18,7 @@ class EntryViewSet(viewsets.ModelViewSet):
     ordering_fields = ['title', 'type', 'status', 'createdBy', 'lastUpdated', 'createdAt']
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        serializer.save(createdBy=self.request.user)
 
     def update(self, request, *args, **kwargs):
         user = self.get_object()
@@ -57,3 +57,12 @@ class AppEntriesView(ListAPIView):
             queryset = queryset.filter(status=EntryPriority[entry_priority].value)
 
         return queryset.order_by('createdAt')
+
+
+class UserEntriesView(ListAPIView):
+    serializer_class = EntrySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Entry.objects.filter(createdBy_id=user_id)

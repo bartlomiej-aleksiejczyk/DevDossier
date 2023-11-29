@@ -1,13 +1,16 @@
-from rest_framework import generics, status, viewsets
+from django.db.models import Count
+from rest_framework import generics, status, viewsets, permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from tracker.common.consts import NOT_AUTHORIZED_MESSAGE
 from tracker.models import User
-from tracker.serializers.user_serializer import UserRegisterSerializer, UserLoginSerializer, UserCRUDSerializer
+from tracker.serializers.user_serializer import UserRegisterSerializer, UserLoginSerializer, UserCRUDSerializer, \
+    UserEntryRankSerializer
 
 
 class UserRegistrationView(generics.CreateAPIView):
@@ -114,3 +117,11 @@ class UserCRUDViewSet(viewsets.ModelViewSet):
         if not request.user.is_superuser and request.user != user:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().destroy(request, *args, **kwargs)
+
+
+class UserRankingView(ListAPIView):
+    serializer_class = UserEntryRankSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return User.objects.annotate(entries_count=Count('entries')).order_by('-entries_count')

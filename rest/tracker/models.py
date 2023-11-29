@@ -25,7 +25,8 @@ class User(AbstractBaseUser):
     objects = TrackerUserManager()
 
     username = models.CharField(max_length=150, unique=True)
-    avatarPath = models.CharField(max_length=255, blank=True, null=True, default="https://u.cubeupload.com/dawid8374/genericavatar.png")
+    avatarPath = models.CharField(max_length=255, blank=True, null=True,
+                                  default="https://u.cubeupload.com/dawid8374/genericavatar.png")
     dateJoined = models.DateTimeField(auto_now_add=True)
     lastLogin = models.DateTimeField(auto_now=True)
     is_superuser = models.BooleanField(blank=False, default=False)
@@ -62,15 +63,6 @@ class Entry(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     lastUpdated = models.DateTimeField(auto_now=True)
     app = models.ForeignKey(App, on_delete=models.CASCADE, related_name='entries')
-
-
-class Tag(models.Model):
-    tagName = models.CharField(max_length=100)
-    tagColor = models.CharField(max_length=7)
-    entry = models.ManyToManyField(Entry, related_name='tags')
-
-    def __str__(self):
-        return self.tagName
 
 
 class Comment(models.Model):

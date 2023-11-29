@@ -34,7 +34,7 @@ class UserRegistrationView(generics.CreateAPIView):
 class UserLoginView(generics.GenericAPIView):
     serializer_class = UserLoginSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
@@ -56,7 +56,7 @@ class UserLoginView(generics.GenericAPIView):
 
 
 class UserLogoutView(APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         if request.user.is_authenticated:
             response = Response({
                 "success": True,
@@ -67,7 +67,7 @@ class UserLogoutView(APIView):
         else:
             return Response({
                 "success": False,
-                "message": "Nie jesteś zalogowany",
+                "message": NOT_AUTHORIZED_MESSAGE,
             }, status=status.HTTP_400_BAD_REQUEST)
 
 

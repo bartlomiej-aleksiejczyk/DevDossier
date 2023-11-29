@@ -5,6 +5,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 
 from tracker.common.consts import NOT_AUTHORIZED_MESSAGE
+from tracker.enums.entry_enums import EntryType, EntryStatus, EntryPriority
 from tracker.models import App, Entry
 from tracker.serializers.entry_serializer import EntrySerializer
 
@@ -41,4 +42,18 @@ class AppEntriesView(ListAPIView):
 
     def get_queryset(self):
         app_id = self.kwargs.get('app_id')
-        return Entry.objects.filter(app_id=app_id).order_by('createdAt')
+        queryset = Entry.objects.filter(app_id=app_id)
+
+        entry_type = self.request.query_params.get('type')
+        if entry_type in EntryType.__members__:
+            queryset = queryset.filter(type=EntryType[entry_type].value)
+
+        entry_status = self.request.query_params.get('status')
+        if entry_status in EntryStatus.__members__:
+            queryset = queryset.filter(status=EntryStatus[entry_status].value)
+
+        entry_priority = self.request.query_params.get('priority')
+        if entry_priority in EntryPriority.__members__:
+            queryset = queryset.filter(status=EntryPriority[entry_priority].value)
+
+        return queryset.order_by('createdAt')

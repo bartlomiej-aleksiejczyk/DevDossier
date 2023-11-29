@@ -23,6 +23,7 @@ urlpatterns = [
         path('', include(router.urls)),
         # Entries of given App
         path('apps/<int:app_id>/entries/', AppEntriesView.as_view(), name='app-entries'),
+        # Comment of given Entry
         path('entries/<int:entry_id>/comments/', EntryCommentsView.as_view(), name='entry-comments')
     ])),
 ]

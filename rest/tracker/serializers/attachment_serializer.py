@@ -7,3 +7,4 @@ class AttachmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attachment
         fields = '__all__'
+        read_only_fields = ['createdBy']

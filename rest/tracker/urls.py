@@ -2,6 +2,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from tracker.views.app_views import AppViewSet
+from tracker.views.attachment_views import AttachmentViewSet
+from tracker.views.comment_views import CommentViewSet, EntryCommentsView
 from tracker.views.entry_views import EntryViewSet, AppEntriesView
 from tracker.views.user_views import UserLoginView, UserRegistrationView, UserLogoutView, UserRoleView, UserCRUDViewSet
 
@@ -9,7 +11,8 @@ router = DefaultRouter()
 router.register(r'users', UserCRUDViewSet)
 router.register(r'apps', AppViewSet)
 router.register(r'entries', EntryViewSet)
-
+router.register(r'comments', CommentViewSet)
+router.register(r'attachments', AttachmentViewSet)
 
 urlpatterns = [
     path('api/v1/', include([
@@ -19,6 +22,7 @@ urlpatterns = [
         path('logout/', UserLogoutView.as_view(), name='logout'),
         path('', include(router.urls)),
         # Entries of given App
-        path('apps/<int:app_id>/entries/', AppEntriesView.as_view(), name='app-entries')
+        path('apps/<int:app_id>/entries/', AppEntriesView.as_view(), name='app-entries'),
+        path('entries/<int:entry_id>/comments/', EntryCommentsView.as_view(), name='entry-comments')
     ])),
 ]

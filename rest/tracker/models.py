@@ -39,6 +39,7 @@ class App(models.Model):
     description = models.TextField()
     repoLink = models.URLField(blank=True, null=True)
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='apps', null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
 
 
 class Entry(models.Model):
@@ -70,12 +71,14 @@ class Comment(models.Model):
     attachment = models.OneToOneField('Attachment', on_delete=models.SET_NULL, blank=True, null=True)
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', null=True)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE, related_name='comments')
+    createdAt = models.DateTimeField(auto_now_add=True)
 
 
 class Attachment(models.Model):
     filePath = models.CharField(max_length=255)
     type = models.CharField(max_length=50)
     createdBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachments', null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
 
     def check_if_valid(self):
         pass

@@ -11,7 +11,7 @@ from tracker.serializers.entry_serializer import EntrySerializer
 
 
 class EntryViewSet(viewsets.ModelViewSet):
-    queryset = App.objects.all()
+    queryset = Entry.objects.all()
     serializer_class = EntrySerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [OrderingFilter]

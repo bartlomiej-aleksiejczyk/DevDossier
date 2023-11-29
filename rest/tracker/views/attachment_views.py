@@ -11,8 +11,6 @@ class AttachmentViewSet(viewsets.ModelViewSet):
     queryset = App.objects.all()
     serializer_class = AppSerializer
     permission_classes = [permissions.IsAuthenticated]
-    filter_backends = [OrderingFilter]
-    ordering_fields = ['name', 'createdBy']
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)

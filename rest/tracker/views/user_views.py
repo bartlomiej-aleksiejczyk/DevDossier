@@ -1,10 +1,13 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from tracker.serializers.user_serializer import UserRegisterSerializer, UserLoginSerializer
+from tracker.common.consts import NOT_AUTHORIZED_MESSAGE
+from tracker.models import User
+from tracker.serializers.user_serializer import UserRegisterSerializer, UserLoginSerializer, UserCRUDSerializer
 
 
 class UserRegistrationView(generics.CreateAPIView):
@@ -12,7 +15,20 @@ class UserRegistrationView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         user = serializer.save()
-        Token.objects.create(user=user)
+        token, _ = Token.objects.create(user=user)
+        response = Response(dict(
+            success=True,
+            message="Login successful",
+            data=UserRegisterSerializer(user).data
+        ))
+        response.set_cookie(
+            key='auth_token',
+            value=token.key,
+            httponly=True,
+            secure=False,
+            samesite='Lax'
+        )
+        return response
 
 
 class UserLoginView(generics.GenericAPIView):
@@ -51,7 +67,7 @@ class UserLogoutView(APIView):
         else:
             return Response({
                 "success": False,
-                "message": "You are not logged in",
+                "message": "Nie jesteś zalogowany",
             }, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -70,3 +86,31 @@ class UserRoleView(APIView):
             message='Login successful',
             data={'role': role}
         ))
+
+
+class UserCRUDViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserCRUDSerializer
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
+        return super().list(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        user = self.get_object()
+        if not request.user.is_superuser and request.user != user:
+            raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
+        return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        user = self.get_object()
+        if not request.user.is_superuser and request.user != user:
+            raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
+        return super().destroy(request, *args, **kwargs)

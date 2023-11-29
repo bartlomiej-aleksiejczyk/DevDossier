@@ -1,20 +1,30 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+from rest_framework import viewsets, permissions
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.filters import OrderingFilter
 
-from tracker.forms.comment_forms import CommentForm
-from tracker.models import Entry, Attachment
+from tracker.common.consts import NOT_AUTHORIZED_MESSAGE
+from tracker.models import Comment
+from tracker.serializers import comment_serializer
 
 
-class CommentViewSet(viewsets.ViewSet):
-    permission_classes = (IsAuthenticated,)
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = comment_serializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [OrderingFilter]
+    ordering_fields = ['name', 'created_at', 'createdBy']
 
-    def get_comments(self, request, pk=None):
-        return Response(
-            dict(
-                success=True,
-                message=(board_instance and "apiColumnUpdated" or "apiColumnAdded"),
-                data=BoardSerializer(Board.objects.all(), many=True).data
-            )
-        )
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        user = self.get_object()
+        if not request.user.is_superuser and request.user != user:
+            raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
+        return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        user = self.get_object()
+        if not request.user.is_superuser and request.user != user:
+            raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
+        return super().destroy(request, *args, **kwargs)

@@ -1,5 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -52,3 +53,20 @@ class UserLogoutView(APIView):
                 "success": False,
                 "message": "You are not logged in",
             }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserRoleView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_superuser:
+            role = 'SUPER_USER'
+        else:
+            role = 'REGULAR_USER'
+
+        return Response(dict(
+            success=True,
+            message='Login successful',
+            data={'role': role}
+        ))

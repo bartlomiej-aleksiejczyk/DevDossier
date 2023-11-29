@@ -28,6 +28,8 @@ class User(AbstractBaseUser):
     avatarPath = models.CharField(max_length=255, blank=True, null=True, default="https://u.cubeupload.com/dawid8374/genericavatar.png")
     dateJoined = models.DateTimeField(auto_now_add=True)
     lastLogin = models.DateTimeField(auto_now=True)
+    is_superuser = models.BooleanField(blank=False)
+
     USERNAME_FIELD = 'username'
 
 

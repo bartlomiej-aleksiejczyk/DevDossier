@@ -22,6 +22,7 @@ urlpatterns = [
         path('register/', UserRegistrationView.as_view(), name='register'),
         path('login/', UserLoginView.as_view(), name='login'),
         path('logout/', UserLogoutView.as_view(), name='logout'),
+        path('role/', UserRoleView.as_view(), name='role'),
         path('', include(router.urls)),
         # Entries of given App
         path('apps/<int:app_id>/entries/', AppEntriesView.as_view(), name='app-entries'),

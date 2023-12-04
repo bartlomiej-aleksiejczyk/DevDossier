@@ -18,7 +18,7 @@ class UserRegistrationView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         user = serializer.save()
-        token, _ = Token.objects.create(user=user)
+        token = Token.objects.create(user=user)
         response = Response(dict(
             success=True,
             message="Login successful",

@@ -17,17 +17,17 @@ class CommentViewSet(viewsets.ModelViewSet):
     ordering_fields = ['name', 'created_at', 'createdBy']
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        serializer.save(createdBy=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        user = self.get_object()
-        if not request.user.is_superuser and request.user != user:
+        comment = self.get_object()
+        if not request.user.is_superuser and request.user != comment.createdBy:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
-        user = self.get_object()
-        if not request.user.is_superuser and request.user != user:
+        comment = self.get_object()
+        if not request.user.is_superuser and request.user != comment.createdBy:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().destroy(request, *args, **kwargs)
 

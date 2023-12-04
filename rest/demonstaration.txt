@@ -1,0 +1,53 @@
+http://127.0.0.1:8000/api/v1/logout/
+http://127.0.0.1:8000/api/v1/users/
+http://127.0.0.1:8000/api/v1/register/
+http://127.0.0.1:8000/api/v1/login/
+http://127.0.0.1:8000/api/v1/users/
+http://127.0.0.1:8000/api/v1/users/1/
+http://127.0.0.1:8000/api/v1/users/1/ - PUT, superuser
+http://127.0.0.1:8000/api/v1/users/
+http://127.0.0.1:8000/api/v1/users/2/ - PUT, username
+Zapisać app ID
+---
+http://127.0.0.1:8000/api/v1/apps/ - POST app {Gra, gra}
+{
+    "name": "Gra",
+    "description": "Gierka",
+    "repoLink": ""
+}
+http://127.0.0.1:8000/api/v1/apps/${idfry}/ - POST/Put/delete app {Gra, gra}
+{
+    "name": "Gra",
+    "description": "Gierka1",
+    "repoLink": ""
+}
+http://127.0.0.1:8000/api/v1/apps/ - POST app {Gra, gra}
+{
+    "name": "Gra",
+    "description": "Gierka",
+    "repoLink": ""
+}
+http://127.0.0.1:8000/api/v1/entries/ - POST -dwa różne typy
+http://127.0.0.1:8000/api/v1/entries/ - POST
+
+---
+http://127.0.0.1:8000/api/v1/apps/17/entries/
+http://127.0.0.1:8000/api/v1/apps/17/entries/?status=NEW
+zapisać entryID
+---
+http://127.0.0.1:8000/api/v1/users/10/entries/
+http://127.0.0.1:8000/api/v1/users/10/entries/ - POST
+{
+    "body": "Pierwszy komentarz",
+    "entry": ${entryID}
+}
+{
+    "body": "Komentarz ze zdjeciem",
+    "attachment": {
+        "filePath": "Image",
+        "type": "https://www.w3schools.com/w3images/ocean.jpg"
+    },
+    "entry": ${entryID}
+}
+---
+http://127.0.0.1:8000/api/v1/entries/${entryID}/comments/

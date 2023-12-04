@@ -21,14 +21,14 @@ class EntryViewSet(viewsets.ModelViewSet):
         serializer.save(createdBy=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        user = self.get_object()
-        if not request.user.is_superuser and request.user != user:
+        entry = self.get_object()
+        if not request.user.is_superuser and request.user != entry.createdBy:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
-        user = self.get_object()
-        if not request.user.is_superuser and request.user != user:
+        entry = self.get_object()
+        if not request.user.is_superuser and request.user != entry.createdBy:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().destroy(request, *args, **kwargs)
 
@@ -45,16 +45,23 @@ class AppEntriesView(ListAPIView):
         queryset = Entry.objects.filter(app_id=app_id)
 
         entry_type = self.request.query_params.get('type')
+        print(entry_type)
         if entry_type in EntryType.__members__:
-            queryset = queryset.filter(type=EntryType[entry_type].value)
+            queryset = queryset.filter(type=EntryType[entry_type].name)
 
         entry_status = self.request.query_params.get('status')
+        print(entry_status)
+        print(EntryStatus.__members__)
+        print(entry_status in EntryStatus.__members__)
         if entry_status in EntryStatus.__members__:
-            queryset = queryset.filter(status=EntryStatus[entry_status].value)
+            print(EntryStatus[entry_status].value)
+            queryset = queryset.filter(status=EntryStatus[entry_status].name)
 
         entry_priority = self.request.query_params.get('priority')
+        print(entry_priority)
         if entry_priority in EntryPriority.__members__:
-            queryset = queryset.filter(status=EntryPriority[entry_priority].value)
+            print(EntryPriority[entry_priority].value)
+            queryset = queryset.filter(priority=EntryPriority[entry_priority].name)
 
         return queryset.order_by('createdAt')
 

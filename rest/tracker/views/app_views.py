@@ -18,28 +18,28 @@ class AppViewSet(viewsets.ModelViewSet):
         queryset = App.objects.all()
         name = self.request.query_params.get('name')
         description = self.request.query_params.get('description')
-        creator = self.request.query_params.get('creator')
+        createdBy = self.request.query_params.get('createdBy')
 
         if name:
             queryset = queryset.filter(name__icontains=name)
         if description:
             queryset = queryset.filter(description__icontains=description)
-        if creator:
-            queryset = queryset.filter(creator__username=creator)
+        if createdBy:
+            queryset = queryset.filter(createdBy__username=createdBy)
 
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        serializer.save(createdBy=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        user = self.get_object()
-        if not request.user.is_superuser and request.user != user:
+        app = self.get_object()
+        if not request.user.is_superuser and request.user != app.createdBy:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
-        user = self.get_object()
-        if not request.user.is_superuser and request.user != user:
+        app = self.get_object()
+        if not request.user.is_superuser and request.user != app.createdBy:
             raise PermissionDenied(NOT_AUTHORIZED_MESSAGE)
         return super().destroy(request, *args, **kwargs)
